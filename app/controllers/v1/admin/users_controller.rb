@@ -1,4 +1,4 @@
-class V1::Admin::UsersController < ApplicationController
+class V1::Admin::UsersController < V1::Admin::BaseController
   # GET /v1/users
   def index
     render json: User.all
