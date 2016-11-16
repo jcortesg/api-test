@@ -2,6 +2,11 @@ require 'rails_helper'
 
 RSpec.describe V1::Admin::TripsController, type: :controller do
 
+  before(:each) do
+    user = FactoryGirl.create(:user)
+    controller.stub(:authorize_request) { user }
+  end
+
   describe "GET #index" do
     before do
       @trip = FactoryGirl.create(:trip)
@@ -20,13 +25,14 @@ RSpec.describe V1::Admin::TripsController, type: :controller do
 
   describe "POST #create" do
     it "creates resource with valid data" do
-      trip_params = FactoryGirl.attributes_for(:trip)
+      user = FactoryGirl.create(:user)
+      trip_params = FactoryGirl.attributes_for(:trip, user_id: user.id)
       post :create, params: { trip: trip_params }
       expect(response.status).to eql(200)
     end
 
     it "render erros with invalid data" do
-      user_params = FactoryGirl.attributes_for(:trip, date: nil)
+      trip_params = FactoryGirl.attributes_for(:trip, date: nil)
       post :create, params: { trip: trip_params }
       expect(response.status).to eql(422)
       expect(response.body).to include("can't be blank")

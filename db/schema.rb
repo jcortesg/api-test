@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161116065600) do
+ActiveRecord::Schema.define(version: 20161116071414) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,25 +23,32 @@ ActiveRecord::Schema.define(version: 20161116065600) do
     t.index ["trip_id"], name: "index_expenses_on_trip_id", using: :btree
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "trips", force: :cascade do |t|
     t.date     "date",       null: false
     t.string   "name",       null: false
     t.string   "place",      null: false
+    t.integer  "user_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["date"], name: "index_trips_on_date", using: :btree
     t.index ["place"], name: "index_trips_on_place", using: :btree
+    t.index ["user_id"], name: "index_trips_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "token"
-    t.string   "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.string   "name",                            null: false
+    t.string   "email",                           null: false
+    t.string   "password_digest",                 null: false
+    t.boolean  "admin",           default: false, null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
-    t.index ["token"], name: "index_users_on_token", unique: true, using: :btree
   end
 
 end

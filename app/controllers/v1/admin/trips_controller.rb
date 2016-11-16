@@ -8,7 +8,7 @@ class V1::Admin::TripsController < V1::Admin::BaseController
     if trip.save
       render json: trip
     else
-      render json: trip.erros, status: :unprocessable_entity
+      render json: trip.errors, status: :unprocessable_entity
     end
   end
 
@@ -26,6 +26,7 @@ class V1::Admin::TripsController < V1::Admin::BaseController
     params.require(:trip).permit(
       :name,
       :date,
+      :user_id,
       :place)
   end
 end

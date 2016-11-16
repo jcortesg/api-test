@@ -1,5 +1,5 @@
 class V1::SessionsController < ApplicationController
-  skip_before_action :authenticate_request
+  skip_before_action :authorize_request
 
   def create
     user = User.find_by(email: params[:email])
