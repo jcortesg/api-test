@@ -5,7 +5,8 @@ class ApplicationController < ActionController::API
 
   private
   def authenticate_request
-    puts "Authorize..."
-    puts request.headers
+    authorization_service = AuthorizationService.new(headers: request.headers)
+    @current_user = authorization_service.current_user
+    render json: { error: 'Not Authorized' }, status: 401 unless @current_user
   end
 end

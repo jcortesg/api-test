@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe V1::Admin::UsersController, type: :controller do
+  before(:each) do
+    user = FactoryGirl.create(:user)
+    @token = JsonWebToken.encode(user_id: user.id)
+  end
 
   describe "GET #index" do
     before do
