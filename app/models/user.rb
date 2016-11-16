@@ -1,6 +1,5 @@
 class User < ApplicationRecord
   include Authentication
-
   validates :email,
             presence: true,
             uniqueness: true
