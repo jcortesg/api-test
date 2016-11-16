@@ -4,7 +4,11 @@ RSpec.describe V1::SessionsController, type: :controller do
 
   describe "POST #create" do
     it "returns http success" do
-      post :create
+      password = "123456789"
+      @user = FactoryGirl.create(:user,
+                                 password: password,
+                                 password_confirmation: password)
+      post :create, params: { email: @user.email, password: password }
       expect(response).to have_http_status(:success)
     end
   end

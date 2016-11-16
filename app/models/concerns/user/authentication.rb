@@ -1,6 +1,6 @@
 require 'active_support/concern'
 
-module User::Authentication
+module Authentication
   extend ActiveSupport::Concern
   included do
     has_secure_password
