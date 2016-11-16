@@ -23,7 +23,7 @@ class V1::Admin::TripsController < V1::Admin::BaseController
 
   private
   def trip_params
-    params.require(:user).permit(
+    params.require(:trip).permit(
       :name,
       :date,
       :place)

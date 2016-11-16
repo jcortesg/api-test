@@ -7,4 +7,6 @@ class User < ApplicationRecord
 
   validates :password,
             length: 8..20
+
+  has_many :trips
 end
