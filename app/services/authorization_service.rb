@@ -1,4 +1,6 @@
 class AuthorizationService
+  require "#{Rails.root}/lib/jwt_token"
+
   def initialize(headers = {})
     @headers = headers
   end
@@ -11,6 +13,7 @@ class AuthorizationService
   end
 
   def authorization_header
-    @headers['Authorization'].split(' ').last if @headers['Authorization'].present?
+    token = @headers[:headers].env["HTTP_AUTHORIZATION"]
+    token.split(' ').last if token.present?
   end
 end

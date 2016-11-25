@@ -1,4 +1,5 @@
 class V1::Admin::TripsController < V1::Admin::BaseController
+
   def index
     render json: Trip.all
   end
